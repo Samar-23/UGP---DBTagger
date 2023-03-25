@@ -26,3 +26,17 @@ sentence based rel acc: 0.3471320346320346
 word based non-rel acc: 0.535710564341847
 sentence based non-rel acc: 0.4101731601731602
 **************************
+Schema: imdb
+
+Dropout: 0.5-BS:32
+
+**************************
+Accuracy:0.9319857685872311
+F1-Score:0.8636731852295386
+
+**************************
+word based rel acc: 0.6453143411224188
+sentence based rel acc: 0.5781926406926406
+word based non-rel acc: 0.6616470278571912
+sentence based non-rel acc: 0.5976731601731601
+**************************
