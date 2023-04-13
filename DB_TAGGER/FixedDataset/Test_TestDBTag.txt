@@ -1,2 +1,2 @@
-Give/O/ me/O/ title/O/ ,/O/ year/O/ ,/O/ rating/O/ ,/O/ director/O/ ,/O/ genre/O/ ,/O/ writer/O/ ,/O/ cinematographer/O/ from/O/ movie/O/
-find/O/ the/O/ name/O/ of/O/ actor/O/ who/O/ lives/O/ in/O/ Dallas/O/
+Find/O/ name/O/ ,/O/ movie/O/ ,/O/ birthdates/O/ ,/O/ place/O/ ,/O/ nationality/O/ from/O/ actors/O/
+find/O/ all/O/ actors/O/ from/O/ Los/O/ Angeles/O/

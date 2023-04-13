@@ -10,14 +10,9 @@ jarfile = stanford_dir + '/stanford-postagger.jar'
 # Initialize the tagger
 tagger = StanfordPOSTagger(modelfile, jarfile)
 
-
-
-
-
-
-
-
-
+_sentences = []
+_tags = []
+_dbtags = []
 
 def query_to_postag(sentence):
     # Take input sentence from user
@@ -32,58 +27,48 @@ def query_to_postag(sentence):
     # Print the tagged sentence
     return tagged_sentence + '\n'
 
-
-
-
-
-
-
-
 def query_to_tag(sentence):
     sentence = sentence.split()
     tagged_sentence = ' '.join([f"{word}/O/" for word in sentence])
     return tagged_sentence + '\n'
 
-
-
-
-
-
-
-
-
-
 # Create a file to write the tagged sentence to
+testtokens = open('Results/Evaluation/'+ 'Test_' + 'testToken' + '.txt' , "w")
 testpos = open('FixedDataset/' + 'Test_' + 'TestPos.txt', "w")
 testtag = open('FixedDataset/' + 'Test_' + 'TestTag.txt', "w")
 testdbtag = open('FixedDataset/' + 'Test_' + 'TestDBTag.txt', "w")
 
 # Given column names and table name:
-table_name = "movie"
-column_names = ["title", "year", "rating", "director", "genre", "writer", "cinematographer"]
+table_name = "actors"
+column_names = ["name", "movie", "birthdates", "place", "nationality"]
 # "composer", "editor", "producer", "production_company", "distributor", "budget", "gross", "runtime", "country", "language"]
 
-global_query = "Give me " + column_names[0]
+global_query = "Find " + column_names[0]
 for i in range(1, len(column_names)):
     global_query += " , "
     global_query += column_names[i]
 
 global_query += " from " + table_name
 
+testtokens.write(global_query)
 testpos.write(query_to_postag(global_query))
 testtag.write(query_to_tag(global_query))
 testdbtag.write(query_to_tag(global_query))
+_sentences.append(global_query)
 
 while(1):
     input_query = input("Enter your query: ")
     if input_query == "exit":
+        testtokens.close()
         testpos.close()
         testtag.close()
         testdbtag.close()
         break
+    testtokens.write(input_query)
     testpos.write(query_to_postag(input_query))
     testtag.write(query_to_tag(input_query))
     testdbtag.write(query_to_tag(input_query))
+    _sentences.append(input_query)
 
 
 
@@ -95,7 +80,6 @@ while(1):
 
 
 
-import os
 import sys
 #home = str(Path.home())
 os.environ ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
@@ -255,12 +239,43 @@ predicted_db_tags = []
 for i, sequence in enumerate(predicteddbtags):
     predicted_db_tags.append(sequence[:len(test_db_tags[i])])
 
-with open('Results/Evaluation/'+ 'Test_' + 'dbTags_' + '.txt', 'w') as f:
+with open('Results/Evaluation/'+ 'Test_' + 'dbTags' + '.txt', 'w') as f:
     for prediction in predicted_db_tags:
         pred = ' '.join(prediction)
-        print(pred + "\n", file=f)
+        _dbtags.append(pred)
+        print(pred, file=f)
 
-with open('Results/Evaluation/'+ 'Test_' + 'testTags_' + '.txt', 'w') as f:
+with open('Results/Evaluation/'+ 'Test_' + 'testTags' + '.txt', 'w') as f:
     for prediction in predicted_tags:
         pred = ' '.join(prediction)
-        print(pred + "\n", file=f)
+        _tags.append(pred)
+        print(pred, file=f)
+
+l = len(_sentences)
+
+with open('Results/Evaluation/'+ 'Test_' + 'Triplets' + '.txt', 'w') as f:
+    ls = []
+    x = _sentences[0].split()
+    y = _tags[0].split()
+    z = _dbtags[0].split()
+    
+    mapping = {}
+    
+    for j in range (len(x)):
+        mapping[z[j]] = x[j]
+    
+    for i in range(1,l):
+        ls1 = []
+        x = _sentences[i].split()
+        y = _tags[i].split()
+        z = _dbtags[i].split()
+        
+        for j in range(len(x)):
+            if z[j] != 'O' and z[j] in mapping.keys() :
+                ls1.append((x[j],y[j],mapping[z[j]]))
+            else:
+                ls1.append((x[j],y[j],z[j]))
+        ls.append(ls1)
+        
+    print(ls)
+    

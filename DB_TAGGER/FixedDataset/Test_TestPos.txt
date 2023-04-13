@@ -1,2 +1,2 @@
-Give/VB/ me/PRP/ title/NN/ ,/,/ year/NN/ ,/,/ rating/NN/ ,/,/ director/NN/ ,/,/ genre/NN/ ,/,/ writer/NN/ ,/,/ cinematographer/NN/ from/IN/ movie/NN/
-find/VB/ the/DT/ name/NN/ of/IN/ actor/NN/ who/WP/ lives/VBZ/ in/IN/ Dallas/NNP/
+Find/VB/ name/NN/ ,/,/ movie/NN/ ,/,/ birthdates/NNS/ ,/,/ place/NN/ ,/,/ nationality/NN/ from/IN/ actors/NNS/
+find/VB/ all/DT/ actors/NNS/ from/IN/ Los/NNP/ Angeles/NNP/
