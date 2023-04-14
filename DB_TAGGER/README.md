@@ -45,7 +45,7 @@ Predictions will be in a `.txt` file inside the [Results/Evaluation](https://git
 
 An example usage is:
 ```
-python evaluate.py imdb 0
+python code.py imdb 0
 ```
 --------
 ## Citing
