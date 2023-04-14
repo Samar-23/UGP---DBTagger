@@ -1,5 +1,6 @@
 import os
 from nltk.tag import StanfordPOSTagger
+from to_sql.py import generate_sql
 
 # Set the path to the tagger and model files
 
@@ -276,6 +277,10 @@ with open('Results/Evaluation/'+ 'Test_' + 'Triplets' + '.txt', 'w') as f:
             else:
                 ls1.append((x[j],y[j],z[j]))
         ls.append(ls1)
+        print(generate_sql(ls1))
         
-    print(ls)
+    # print(ls)
+    
+    
+    
     
